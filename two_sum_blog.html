@@ -1,0 +1,258 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+  .blog-root { font-family: 'DM Sans', sans-serif; max-width: 680px; margin: 0 auto; padding: 2.5rem 0 4rem; color: var(--color-text-primary); }
+
+  .tag { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #5DCAA5; margin-bottom: 1rem; display: block; }
+
+  .blog-title { font-family: 'Lora', serif; font-size: 36px; font-weight: 600; line-height: 1.2; margin: 0 0 0.75rem; }
+
+  .blog-subtitle { font-family: 'Lora', serif; font-style: italic; font-size: 18px; color: var(--color-text-secondary); font-weight: 400; margin: 0 0 1.5rem; line-height: 1.5; }
+
+  .meta { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--color-text-secondary); margin-bottom: 2rem; }
+
+  .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--color-text-secondary); }
+
+  .divider { height: 0.5px; background: var(--color-border-tertiary); margin: 2rem 0; }
+
+  .prose { font-size: 16px; line-height: 1.8; color: var(--color-text-primary); }
+
+  .prose p { margin: 0 0 1.25rem; }
+
+  .section-heading { font-family: 'Lora', serif; font-size: 22px; font-weight: 600; margin: 2.5rem 0 1rem; }
+
+  .sub-heading { font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-secondary); margin: 2rem 0 0.75rem; }
+
+  .callout { background: var(--color-background-secondary); border-left: 3px solid #1D9E75; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 15px; line-height: 1.7; }
+
+  .callout strong { color: #0F6E56; }
+
+  code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--color-background-secondary); padding: 2px 6px; border-radius: 4px; }
+
+  .code-block { background: #1a1a1a; border-radius: var(--border-radius-lg); padding: 1.25rem 1.5rem; margin: 1.25rem 0; overflow-x: auto; }
+
+  .code-block pre { margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.8; color: #e2e8f0; }
+
+  .kw { color: #c792ea; }
+  .fn { color: #82aaff; }
+  .cm { color: #546e7a; font-style: italic; }
+  .st { color: #c3e88d; }
+  .nm { color: #f78c6c; }
+  .op { color: #89ddff; }
+
+  .complexity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1.5rem 0; }
+
+  .complexity-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+
+  .complexity-card .label { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-secondary); margin-bottom: 6px; }
+
+  .complexity-card .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .badge { display: inline-block; font-size: 12px; font-family: 'JetBrains Mono', monospace; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+
+  .badge-red { background: #FCEBEB; color: #A32D2D; }
+  .badge-green { background: #EAF3DE; color: #3B6D11; }
+  .badge-amber { background: #FAEEDA; color: #854F0B; }
+
+  .step-row { display: flex; gap: 14px; margin: 1rem 0; align-items: flex-start; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: #E1F5EE; color: #0F6E56; font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-text { font-size: 15px; line-height: 1.7; flex: 1; }
+
+  .trace-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 13px; margin: 1.25rem 0; }
+  .trace-table th { text-align: left; padding: 8px 12px; background: var(--color-background-secondary); color: var(--color-text-secondary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+  .trace-table td { padding: 8px 12px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); }
+  .trace-table tr.hit td { background: #E1F5EE; color: #085041; }
+  .trace-table tr.hit td:first-child { border-left: 3px solid #1D9E75; }
+
+  .key-insight { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem; margin: 2rem 0; background: var(--color-background-primary); }
+  .key-insight .ki-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; color: #1D9E75; margin-bottom: 10px; }
+  .key-insight .ki-text { font-family: 'Lora', serif; font-size: 18px; font-style: italic; line-height: 1.6; color: var(--color-text-primary); }
+
+  .footer-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2.5rem; }
+  .ftag { font-size: 12px; padding: 4px 12px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); color: var(--color-text-secondary); }
+</style>
+
+<div class="blog-root">
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;">Blog post: Cracking Two Sum — from brute force to hash map mastery</h2>
+
+  <span class="tag">LeetCode · Python · Hash Maps</span>
+  <h1 class="blog-title">Cracking Two Sum</h1>
+  <p class="blog-subtitle">From a naive O(n²) brute force to an elegant O(n) hash map — every step explained.</p>
+
+  <div class="meta">
+    <span>6 min read</span>
+    <div class="meta-dot"></div>
+    <span>LeetCode #1 · Easy</span>
+    <div class="meta-dot"></div>
+    <span>Python</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="prose">
+    <p>Two Sum is the first problem on LeetCode, and for good reason. It's the perfect introduction to one of the most important ideas in competitive programming: <em>trading space for speed</em>. Let's start from scratch and build up to the optimal solution.</p>
+
+    <h2 class="section-heading">The problem</h2>
+    <p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return the indices of the two numbers that add up to <code>target</code>. You may assume exactly one solution exists.</p>
+
+    <div class="code-block"><pre><span class="cm"># Example</span>
+nums   = [<span class="nm">2</span>, <span class="nm">7</span>, <span class="nm">11</span>, <span class="nm">15</span>]
+target = <span class="nm">9</span>
+<span class="cm"># Output: [0, 1]  because  2 + 7 = 9</span></pre></div>
+
+    <h2 class="section-heading">Approach 1 — Brute force</h2>
+    <p>The most natural instinct: check every pair of numbers and see if they sum to <code>target</code>. Two loops, simple logic.</p>
+
+    <div class="code-block"><pre><span class="kw">def</span> <span class="fn">twoSum_brute</span>(nums, target):
+    n = <span class="fn">len</span>(nums)
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):              <span class="cm"># first number</span>
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i <span class="op">+</span> <span class="nm">1</span>, n):   <span class="cm"># second (always after i)</span>
+            <span class="kw">if</span> nums[i] <span class="op">+</span> nums[j] <span class="op">==</span> target:
+                <span class="kw">return</span> [i, j]</pre></div>
+
+    <p>Notice <code>j = i + 1</code> — this ensures we never pair a number with itself, and we never check the same pair twice.</p>
+
+    <div class="callout">
+      <strong>Why not j = 0?</strong> Starting j from 0 would pair each number with itself (e.g. <code>nums[0] + nums[0]</code>), which is invalid. Starting from <code>i + 1</code> guarantees j is always strictly ahead of i.
+    </div>
+
+    <div class="complexity-grid">
+      <div class="complexity-card">
+        <div class="label">Brute force complexity</div>
+        <div class="badge-row">
+          <span class="badge badge-red">Time: O(n²)</span>
+          <span class="badge badge-green">Space: O(1)</span>
+        </div>
+      </div>
+      <div class="complexity-card">
+        <div class="label">At n = 10,000</div>
+        <div class="badge-row">
+          <span class="badge badge-amber">~50 million ops</span>
+        </div>
+      </div>
+    </div>
+
+    <p>For small arrays this is fine. But at scale, two nested loops become painfully slow. We need a better idea.</p>
+
+    <h2 class="section-heading">Approach 2 — Hash map</h2>
+    <p>Here's the key insight that unlocks the optimal solution:</p>
+
+    <div class="key-insight">
+      <div class="ki-label">Core insight</div>
+      <div class="ki-text">"For every number <em>n</em>, its partner is <em>target − n</em>. Instead of searching the whole array for that partner, store what we've already seen in a hash map for O(1) lookup."</div>
+    </div>
+
+    <p>We walk through the array once. At each number, we ask: <em>have I already seen its complement?</em> If yes — we're done. If no — store the current number for future lookups.</p>
+
+    <p class="sub-heading">The algorithm step by step</p>
+
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-text">Create an empty dictionary <code>seen</code> that maps a value to its index.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-text">For each number <code>n</code> at index <code>i</code>, compute <code>diff = target - n</code>.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-text">Check if <code>diff</code> is already in <code>seen</code>. If yes — return <code>[seen[diff], i]</code>.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">4</div>
+      <div class="step-text">Otherwise store <code>seen[n] = i</code> and continue.</div>
+    </div>
+
+    <div class="code-block"><pre><span class="kw">def</span> <span class="fn">twoSum</span>(nums, target):
+    seen = {}                         <span class="cm"># value → index</span>
+
+    <span class="kw">for</span> i, n <span class="kw">in</span> <span class="fn">enumerate</span>(nums):
+        diff = target <span class="op">-</span> n            <span class="cm"># the partner we need</span>
+
+        <span class="kw">if</span> diff <span class="kw">in</span> seen:              <span class="cm"># O(1) lookup — found it!</span>
+            <span class="kw">return</span> [seen[diff], i]
+
+        seen[n] = i                   <span class="cm"># store after checking</span></pre></div>
+
+    <p class="sub-heading">Tracing through an example</p>
+    <p>Let's trace <code>nums = [2, 7, 11, 15]</code> with <code>target = 9</code>:</p>
+
+    <table class="trace-table">
+      <thead>
+        <tr><th>i</th><th>n</th><th>diff (9-n)</th><th>diff in seen?</th><th>seen after</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>2</td><td>7</td><td>No</td><td>{2: 0}</td></tr>
+        <tr class="hit"><td>1</td><td>7</td><td>2</td><td>Yes ✓ → return [0, 1]</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <p>We only needed 2 iterations instead of checking all pairs. Let's trace a harder example: <code>nums = [3, 5, -4, 8, 11, 1, -1]</code>, <code>target = 10</code>:</p>
+
+    <table class="trace-table">
+      <thead>
+        <tr><th>i</th><th>n</th><th>diff</th><th>in seen?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>3</td><td>7</td><td>No → store {3:0}</td></tr>
+        <tr><td>1</td><td>5</td><td>5</td><td>No → store {3:0, 5:1}</td></tr>
+        <tr><td>2</td><td>-4</td><td>14</td><td>No → store {..., -4:2}</td></tr>
+        <tr><td>3</td><td>8</td><td>2</td><td>No → store {..., 8:3}</td></tr>
+        <tr><td>4</td><td>11</td><td>-1</td><td>No → store {..., 11:4}</td></tr>
+        <tr><td>5</td><td>1</td><td>9</td><td>No → store {..., 1:5}</td></tr>
+        <tr class="hit"><td>6</td><td>-1</td><td>11</td><td>Yes ✓ → return [4, 6]</td></tr>
+      </tbody>
+    </table>
+
+    <div class="complexity-grid">
+      <div class="complexity-card">
+        <div class="label">Hash map complexity</div>
+        <div class="badge-row">
+          <span class="badge badge-green">Time: O(n)</span>
+          <span class="badge badge-amber">Space: O(n)</span>
+        </div>
+      </div>
+      <div class="complexity-card">
+        <div class="label">At n = 10,000</div>
+        <div class="badge-row">
+          <span class="badge badge-green">~10K ops</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-heading">A subtle edge case — duplicates</h2>
+    <p>What if the answer pair is two of the same number, like <code>nums = [3, 3]</code> with <code>target = 6</code>?</p>
+
+    <div class="code-block"><pre>i=<span class="nm">0</span>, n=<span class="nm">3</span>  <span class="op">→</span>  diff=<span class="nm">3</span>  <span class="op">→</span>  not in {}         <span class="op">→</span>  store {<span class="nm">3</span>: <span class="nm">0</span>}
+i=<span class="nm">1</span>, n=<span class="nm">3</span>  <span class="op">→</span>  diff=<span class="nm">3</span>  <span class="op">→</span>  found at index <span class="nm">0</span>!  <span class="op">→</span>  return [<span class="nm">0</span>, <span class="nm">1</span>] ✓</pre></div>
+
+    <p>It works because we store <code>seen[n] = i</code> <em>after</em> the check. At <code>i=0</code> we haven't stored 3 yet, so we can't accidentally match it with itself. By the time <code>i=1</code> checks, the first 3 is safely in <code>seen</code>.</p>
+
+    <h2 class="section-heading">Brute force vs hash map</h2>
+    <p>The two approaches represent a fundamental trade-off that appears throughout algorithm design:</p>
+
+    <div class="callout">
+      <strong>Brute force</strong> uses no extra memory but checks every pair — O(n²) time, O(1) space.<br><br>
+      <strong>Hash map</strong> spends O(n) memory to store what it has seen — and buys O(n) time in return. One pass, one lookup per element.
+    </div>
+
+    <p>This trade-off — pay in space to save in time — is the core idea behind hash maps, memoization, caching, and many other optimizations you'll encounter throughout LeetCode.</p>
+
+    <h2 class="section-heading">The takeaway</h2>
+    <p>Two Sum teaches a pattern that recurs in dozens of problems: <em>for each element, ask what its complement looks like, and use a hash map to check for it in O(1)</em>. Once this thinking clicks, problems like Three Sum, Four Sum, and Subarray Sum Equals K all start to feel approachable.</p>
+
+    <p>Next time you see a problem asking "do any two elements satisfy some condition", reach for a hash map first.</p>
+  </div>
+
+  <div class="divider"></div>
+  <div class="footer-tags">
+    <span class="ftag">Python</span>
+    <span class="ftag">Hash Maps</span>
+    <span class="ftag">Arrays</span>
+    <span class="ftag">LeetCode Easy</span>
+    <span class="ftag">Two Sum</span>
+    <span class="ftag">Time Complexity</span>
+  </div>
+</div>
